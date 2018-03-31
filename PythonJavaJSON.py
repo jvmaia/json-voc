@@ -1,4 +1,5 @@
 from org.json import JSONObject, JSONArray
+import org.python.java.Object
 
 
 def getKeysObject(jsonObject):
@@ -16,32 +17,49 @@ def getKeysArray(jsonArray):
     return keys
 
 
-def jsonToDict(json):
+def jsonObjToDict(json):
     keys = getKeysObject(json)
     json_dict = {}
     for key in keys:
         if json.isNull(key):
             value = None
         else:
-            value = json.get(key)
+            try:
+                value = jsonObjToDict(json.getJSONObject(key))
+            except:
+                try:
+                    value = jsonArrayToDict(json.getJSONArray(key))
+                except:
+                    value = json.get(key)
         json_dict[key] = value
 
     return json_dict
 
 
+def jsonArrayToDict(json):
+    keys = getKeysArray(json)
+    json_array = []
+    for key in keys:
+        value = json.get(key)
+        try:
+            value = jsonObjToDict(value)
+        except:
+            try:
+                value = jsonArrayToDict(json.getJSONArray(key))
+            except:
+                value = json.get(key)
+
+        json_array.append(value)
+
+    return json_array
+
+
 def loads(s):
     if s.startswith('{'):
         objJson = JSONObject(s)
-        python_json = jsonToDict(objJson)
-        return python_json
+        python_json = jsonObjToDict(objJson)
     else:
-        json = JSONArray(s)
-        keys = getKeysArray(json)
-        python_json = []
-
-    for key in keys:
-        objJson = json.get(key)
-        objDict = jsonToDict(objJson)
-        python_json.append(objDict)
+        arrayjson = JSONArray(s)
+        python_json = jsonArrayToDict(arrayjson)
 
     return python_json
