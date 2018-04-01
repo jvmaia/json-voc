@@ -16,20 +16,20 @@ array = """[{'a':5, 'b':10, 'c':'test', 'd':'bbbbbbbb', 'e':null},
         """
 array_json = PythonJavaJSON.loads(array)
 print(type(array_json))
-print(array_json, end='\n\n\n\n\n\n')
+print('ARRAY 00 --> ', array_json, end='\n\n')
 
 # NESTED JSON ARRAY TEST 02
-array01 = """[{"h": null}, {"j":2345}, [{"k":9}]]"""
+array01 = """[{"h": null}, {"j":2345}, [{"k":9.0}]]"""
 array01_json = PythonJavaJSON.loads(array01)
 print(type(array01_json))
-print(array01_json, end='\n\n')
+print('ARRAY 01 --> ', array01_json, end='\n\n')
 
 
 # EVERYTHING NESTED JSON OBJECT/ARRAY  TEST
 nested = """
         [{"test": [{"t": 0, "e": 1}, [{"s":2}, {"t": 3}]]},
-        {"test2": {"s": 2, "t": 3 } }]
+        {"test2": {"s": 2, "t": true, "f": false } }]
         """
 nested_json = PythonJavaJSON.loads(nested)
 print(type(nested_json))
-print(nested_json, end='\n\n')
+print('NESTED --> ', nested_json, end='\n\n')
