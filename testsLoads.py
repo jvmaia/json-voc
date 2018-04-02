@@ -1,6 +1,7 @@
 from org.json import JSONObject
 import PythonJavaJSON
 
+# TESTS FOR FUNCTION LOADS()
 
 # SIMPLE JSON TEST
 obj = "{'a':6, 'b':10, 'c':'teste', 'd':'iasudfnjskd', 'e':null}"
