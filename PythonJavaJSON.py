@@ -63,3 +63,35 @@ def loads(s):
         python_json = jsonArrayToDict(arrayjson)
 
     return python_json
+
+
+def dictToJsonObject(d):
+    json = JSONObject()
+    for key in d:
+        value = d[key]
+        if value is None:
+            value = JSONObject.NULL
+        elif isinstance(value, dict):
+            value = dictToJsonObject(value)
+        elif isinstance(value, list):
+            value = listToJsonArray(value)
+        json.put(key, value)
+
+    return json
+
+
+def arrayToJsonArray(d):
+    # TODO
+    pass
+
+
+def dumps(obj):
+    if isinstance(obj, dict):
+        json = dictToJsonObject(obj)
+    else:
+        json = arrayToJsonArray(obj)
+
+    print(type(json))
+    print(json)
+    json_string = json.toString()
+    return json_string
