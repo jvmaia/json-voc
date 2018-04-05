@@ -80,16 +80,23 @@ def dictToJsonObject(d):
     return json
 
 
-def arrayToJsonArray(d):
-    # TODO
-    pass
+def listToJsonArray(d):
+    json = JSONArray()
+    for item in d:
+        if isinstance(item, dict):
+            value = dictToJsonObject(item)
+        else:
+            value = listToJsonArray(item)
+        json.put(value)
+
+    return json
 
 
 def dumps(obj):
     if isinstance(obj, dict):
         json = dictToJsonObject(obj)
     else:
-        json = arrayToJsonArray(obj)
+        json = listToJsonArray(obj)
 
     print(type(json))
     print(json)
