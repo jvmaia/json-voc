@@ -97,7 +97,5 @@ def dumps(obj):
     else:
         json = listToJsonArray(obj)
 
-    print(type(json))
-    print(json)
     json_string = json.toString()
     return json_string
