@@ -1,5 +1,4 @@
 from org.json import JSONObject, JSONArray
-import org.python.java.Object
 
 
 def getKeysObject(jsonObject):
